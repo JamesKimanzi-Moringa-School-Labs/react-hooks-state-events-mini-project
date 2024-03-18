@@ -1,19 +1,19 @@
-import React from "react";
-import CategoryFilter from "./CategoryFilter";
+import React, { useState } from "react";
 import NewTaskForm from "./NewTaskForm";
-import TaskList from "./TaskList";
-
-import { CATEGORIES, TASKS } from "../data";
-console.log("Here's the data you're working with");
-console.log({ CATEGORIES, TASKS });
 
 function App() {
+  const [tasks, setTasks] = useState([]);
+  const [categories, setCategories] = useState(["Work", "Personal", "Study"]);
+
+  const handleTaskFormSubmit = (formData) => {
+    const newTask = { id: tasks.length + 1, ...formData };
+    setTasks([...tasks, newTask]);
+  };
+
   return (
-    <div className="App">
-      <h2>My tasks</h2>
-      <CategoryFilter />
-      <NewTaskForm />
-      <TaskList />
+    <div className="app">
+      <NewTaskForm categories={categories} onTaskFormSubmit={handleTaskFormSubmit} />
+      {/* Render TaskList or display tasks here */}
     </div>
   );
 }
